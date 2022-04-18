@@ -11,7 +11,8 @@ int * FIBONACCI;
 int done = 0;
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t c = PTHREAD_COND_INITIALIZER;
-void FibonacciIterative(int num){
+void* FibonacciIterative(void * ptr){
+    int num = *((int*)ptr);
     for(int i = 0; i < num; i ++){
         pthread_mutex_lock(&m);
         
@@ -43,6 +44,7 @@ void FibonacciIterative(int num){
             printf("Mutex Unlocked by FibonacciIterative \n");
         }
     }
+    return NULL;
 }
 
 void displayFibonacci(){
@@ -69,9 +71,9 @@ int main(){
 
     pthread_t threadID;
     pthread_attr_t threadAttribute;
-
+    void * ptr = (void*)(&SIZE);
     pthread_attr_init(&threadAttribute);
-    pthread_create(&threadID, &threadAttribute, FibonacciIterative, SIZE);
+    pthread_create(&threadID, &threadAttribute, FibonacciIterative, ptr);
     pthread_detach(&threadID);
 
 
