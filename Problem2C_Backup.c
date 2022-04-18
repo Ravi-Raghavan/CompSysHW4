@@ -10,7 +10,8 @@ int SIZE;
 int * FIBONACCI;
 int count = 0;
 pthread_mutex_t mutexVariable = PTHREAD_MUTEX_INITIALIZER;
-void FibonacciIterative(int num){
+void* FibonacciIterative(void * ptr){
+    int num = *((int*) ptr);
     for(; count < 2 * num;){
         if(count % 2 == 0){
             int index = count / 2;
@@ -34,6 +35,7 @@ void FibonacciIterative(int num){
             count ++;
         }
     }
+    return NULL;
 }
 
 void displayFibonacci(){
@@ -57,9 +59,9 @@ int main(){
 
     pthread_t threadID;
     pthread_attr_t threadAttribute;
-
+    void * ptr = (void *)(&SIZE);
     pthread_attr_init(&threadAttribute);
-    pthread_create(&threadID, &threadAttribute, FibonacciIterative, SIZE);
+    pthread_create(&threadID, &threadAttribute, FibonacciIterative, ptr);
     pthread_detach(&threadID);
     displayFibonacci();
 }
