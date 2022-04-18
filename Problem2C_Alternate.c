@@ -1,3 +1,4 @@
+//Alternate Code with Condition Variables
 #include <pthread.h>
 #include <stdio.h>
 #include <signal.h>
