@@ -45,9 +45,9 @@ void displayFibonacci(){
             pthread_mutex_lock(&mutexVariable);
             printf("Mutex Locked by displayFibonacci \n");
             printf("The %d th Fibonacci Number is: %d\n", index, *(FIBONACCI + index));
-            count ++;
             pthread_mutex_unlock(&mutexVariable);
             printf("Mutex Unlocked by displayFibonacci \n");
+            count ++;
         }
     }
 }
@@ -65,12 +65,3 @@ int main(){
     pthread_detach(&threadID);
     displayFibonacci();
 }
-
-/**
- * @brief 
- * Basically, I had a global integer variable called done. Every time the child thread began a recursive execution of FibonacciRecursive(), 
- * I created a lock for the child thread. When the child was done generating a fibonaci number and writing that number to array storage, 
- * the child thread would signal to the parent thread that it was done using the condition variable. Furthermore, the child thread would release its lock 
- * 
- * 
- */
