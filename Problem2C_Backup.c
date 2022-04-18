@@ -19,20 +19,22 @@ void* FibonacciIterative(void * ptr){
             printf("Mutex Locked by FibonacciIterative \n");
             if(index == 0){
                 *(FIBONACCI + index) = 0;
+                count ++;
                 pthread_mutex_unlock(&mutexVariable);
                 printf("Mutex Unlocked by FibonacciIterative \n");
             }
             else if(index == 1){
                 *(FIBONACCI + index) = 1;
+                count ++;
                 pthread_mutex_unlock(&mutexVariable);
                 printf("Mutex Unlocked by FibonacciIterative \n");
             }
             else{
                 *(FIBONACCI + index) = *(FIBONACCI + index - 1) + *(FIBONACCI + index - 2);
+                count ++;
                 pthread_mutex_unlock(&mutexVariable);
                 printf("Mutex Unlocked by FibonacciIterative \n");
             }
-            count ++;
         }
     }
     return NULL;
@@ -45,9 +47,9 @@ void displayFibonacci(){
             pthread_mutex_lock(&mutexVariable);
             printf("Mutex Locked by displayFibonacci \n");
             printf("The %d th Fibonacci Number is: %d\n", index, *(FIBONACCI + index));
+            count ++;
             pthread_mutex_unlock(&mutexVariable);
             printf("Mutex Unlocked by displayFibonacci \n");
-            count ++;
         }
     }
 }
