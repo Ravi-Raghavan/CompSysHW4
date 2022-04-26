@@ -56,7 +56,7 @@ void displayFibonacci(){
 }
 
 int main(){
-    //printf("Please Enter a Number Indicating the Number of Fibonacci Numbers You Would Like to Generate\n");
+    printf("Please Enter a Number Indicating the Number of Fibonacci Numbers You Would Like to Generate\n");
     int x = scanf("%d", &SIZE);
     FIBONACCI = (int*)(malloc(SIZE * sizeof(int)));
 
