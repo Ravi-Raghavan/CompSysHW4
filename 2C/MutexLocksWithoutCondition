@@ -17,24 +17,24 @@ void* FibonacciIterative(void * ptr){
         if(count % 2 == 0){
             int index = count / 2;
             pthread_mutex_lock(&mutexVariable);
-            printf("Mutex Locked by FibonacciIterative \n");
+            //printf("Mutex Locked by FibonacciIterative \n");
             if(index == 0){
                 *(FIBONACCI + index) = 0;
                 count ++;
                 pthread_mutex_unlock(&mutexVariable);
-                printf("Mutex Unlocked by FibonacciIterative \n");
+                //printf("Mutex Unlocked by FibonacciIterative \n");
             }
             else if(index == 1){
                 *(FIBONACCI + index) = 1;
                 count ++;
                 pthread_mutex_unlock(&mutexVariable);
-                printf("Mutex Unlocked by FibonacciIterative \n");
+                //printf("Mutex Unlocked by FibonacciIterative \n");
             }
             else{
                 *(FIBONACCI + index) = *(FIBONACCI + index - 1) + *(FIBONACCI + index - 2);
                 count ++;
                 pthread_mutex_unlock(&mutexVariable);
-                printf("Mutex Unlocked by FibonacciIterative \n");
+                //printf("Mutex Unlocked by FibonacciIterative \n");
             }
         }
     }
@@ -46,17 +46,17 @@ void displayFibonacci(){
         if(count % 2 != 0){
             int index = count / 2;
             pthread_mutex_lock(&mutexVariable);
-            printf("Mutex Locked by displayFibonacci \n");
-            printf("The %d th Fibonacci Number is: %d\n", index, *(FIBONACCI + index));
+            //printf("Mutex Locked by displayFibonacci \n");
+            //printf("The %d th Fibonacci Number is: %d\n", index, *(FIBONACCI + index));
             count ++;
             pthread_mutex_unlock(&mutexVariable);
-            printf("Mutex Unlocked by displayFibonacci \n");
+            //printf("Mutex Unlocked by displayFibonacci \n");
         }
     }
 }
 
 int main(){
-    printf("Please Enter a Number Indicating the Number of Fibonacci Numbers You Would Like to Generate\n");
+    //printf("Please Enter a Number Indicating the Number of Fibonacci Numbers You Would Like to Generate\n");
     int x = scanf("%d", &SIZE);
     FIBONACCI = (int*)(malloc(SIZE * sizeof(int)));
 
