@@ -17,32 +17,38 @@ void* FibonacciIterative(void * ptr){
     int num = *((int*)ptr);
     for(int i = 0; i < num; i ++){
         pthread_mutex_lock(&m);
+        //printf("Child Thread is going to be blocked on condition variable\n");
         while(i > 0 && readDone == 0){
             pthread_cond_wait(&c, &m);
         }
+        //printf("Child Thread is no longer blocked on condition variable\n");
+
         readDone = 0;
-        printf("(Iteration %d) Mutex Locked by FibonacciIterative \n", i);
+        //printf("(Iteration %d) Mutex Locked by FibonacciIterative \n", i);
         writeDone = 0;
         if(i == 0){
             *(FIBONACCI + i) = 0;
             writeDone = 1;
             pthread_cond_signal(&c);
+            //printf("The child thread will now unblock the parent thread that is blocked on the condition variable\n");
             pthread_mutex_unlock(&m);
-            printf("(Iteration %d) Mutex Unlocked by FibonacciIterative \n", i);
+            //printf("(Iteration %d) Mutex Unlocked by FibonacciIterative \n", i);
         }
         else if(i == 1){
             *(FIBONACCI + i) = 1;
             writeDone = 1;
             pthread_cond_signal(&c);
+            //printf("The child thread will now unblock the parent thread that is blocked on the condition variable\n");
             pthread_mutex_unlock(&m);
-            printf("(Iteration %d) Mutex Unlocked by FibonacciIterative \n", i);
+            //printf("(Iteration %d) Mutex Unlocked by FibonacciIterative \n", i);
         }
         else{
             *(FIBONACCI + i) = *(FIBONACCI + i - 1) + *(FIBONACCI + i - 2);
             writeDone = 1;
             pthread_cond_signal(&c);
+            //printf("The child thread will now unblock the parent thread that is blocked on the condition variable\n");
             pthread_mutex_unlock(&m);
-            printf("(Iteration %d) Mutex Unlocked by FibonacciIterative \n", i);
+            //printf("(Iteration %d) Mutex Unlocked by FibonacciIterative \n", i);
         }
     }
     return NULL;
@@ -51,17 +57,20 @@ void* FibonacciIterative(void * ptr){
 void displayFibonacci(){
     for(int i = 0; i< SIZE; i ++){
         pthread_mutex_lock(&m);
+        //printf("Parent Thread is going to be blocked on condition variable\n");
         while(writeDone == 0){
             pthread_cond_wait(&c, &m);
         }
+        //printf("Parent Thread is no longer blocked on condition variable\n");
         writeDone = 0;
-        printf("Mutex Locked by displayFibonacci \n");
+        //printf("Mutex Locked by displayFibonacci \n");
         readDone = 0;
         printf("The %d th Fibonacci Number is: %d\n", i, *(FIBONACCI + i));
         readDone = 1;
         pthread_cond_signal(&c);
+        //printf("The parent thread will now unblock the child thread that is blocked on the condition variable\n");
         pthread_mutex_unlock(&m);
-        printf("Mutex Unlocked by displayFibonacci \n");
+        //printf("Mutex Unlocked by displayFibonacci \n");
     }
 }
 
