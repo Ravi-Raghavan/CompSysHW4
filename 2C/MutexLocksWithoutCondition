@@ -47,7 +47,7 @@ void displayFibonacci(){
             int index = count / 2;
             pthread_mutex_lock(&mutexVariable);
             //printf("Mutex Locked by displayFibonacci \n");
-            //printf("The %d th Fibonacci Number is: %d\n", index, *(FIBONACCI + index));
+            printf("The %d th Fibonacci Number is: %d\n", index, *(FIBONACCI + index));
             count ++;
             pthread_mutex_unlock(&mutexVariable);
             //printf("Mutex Unlocked by displayFibonacci \n");
