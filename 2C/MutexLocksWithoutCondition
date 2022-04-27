@@ -65,6 +65,6 @@ int main(){
     void * ptr = (void *)(&SIZE);
     pthread_attr_init(&threadAttribute);
     pthread_create(&threadID, &threadAttribute, FibonacciIterative, ptr);
-    pthread_detach(&threadID);
+    pthread_detach(threadID);
     displayFibonacci();
 }
